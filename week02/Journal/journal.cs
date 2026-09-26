@@ -4,7 +4,7 @@ using System.IO;
 
 public class Journal
 {
-    // Member variable (abstraction)
+    
     private List<Entry> _entries = new List<Entry>();
     private List<string> _prompts = new List<string>()
     {
@@ -20,7 +20,7 @@ public class Journal
 
     private Random _random = new Random();
 
-    // Method to write a new entry
+    
     public void WriteNewEntry()
     {
         string prompt = GetRandomPrompt();
@@ -33,14 +33,14 @@ public class Journal
         _entries.Add(newEntry);
     }
 
-    // Method to get a random prompt
+
     private string GetRandomPrompt()
     {
         int index = _random.Next(_prompts.Count);
         return _prompts[index];
     }
 
-    // Method to display all entries
+    
     public void DisplayJournal()
     {
         if (_entries.Count == 0)
@@ -56,7 +56,7 @@ public class Journal
         }
     }
 
-    // Method to save journal to a file
+    
     public void SaveJournal()
     {
         Console.Write("What is the filename? ");
@@ -79,7 +79,7 @@ public class Journal
         }
     }
 
-    // Method to load journal from a file
+    
     public void LoadJournal()
     {
         Console.Write("What is the filename? ");
@@ -93,7 +93,7 @@ public class Journal
                 return;
             }
 
-            // Replace current entries with loaded ones
+    
             _entries.Clear();
 
             string[] lines = File.ReadAllLines(filename);
