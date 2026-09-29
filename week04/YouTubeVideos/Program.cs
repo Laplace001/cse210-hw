@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-// Comment class - tracks the name of the person and the text of the comment
+
 public class Comment
 {
     public string CommenterName { get; set; }
@@ -14,7 +14,7 @@ public class Comment
     }
 }
 
-// Video class - tracks title, author, length (seconds), and a list of comments
+
 public class Video
 {
     public string Title { get; set; }
@@ -49,7 +49,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Create the list that will hold all the videos
+        
         List<Video> videos = new List<Video>();
 
         // ----- Video 1 -----
@@ -82,7 +82,7 @@ public class Program
         video4.AddComment(new Comment("AstroAmy", "Number 3 was my favorite discovery too!"));
         videos.Add(video4);
 
-        // Iterate through the list and display each video's details and comments
+        
         foreach (Video video in videos)
         {
             Console.WriteLine("==================================================");
