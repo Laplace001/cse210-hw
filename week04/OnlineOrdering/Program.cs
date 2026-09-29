@@ -191,8 +191,8 @@ public class Program
     public static void Main(string[] args)
     {
         // ----- Order 1: Customer in the USA -----
-        Address address1 = new Address("123 Maple Street", "Springfield", "IL", "USA");
-        Customer customer1 = new Customer("John Smith", address1);
+        Address address1 = new Address("123 ALUU", "Portharcourt", "IL", "Nigeria");
+        Customer customer1 = new Customer("Oame John", address1);
 
         Order order1 = new Order(customer1);
         order1.AddProduct(new Product("Wireless Mouse", "WM-101", 24.99, 2));
@@ -200,8 +200,8 @@ public class Program
         order1.AddProduct(new Product("USB-C Cable", "UC-310", 9.99, 3));
 
         
-        Address address2 = new Address("45 King's Road", "London", "England", "United Kingdom");
-        Customer customer2 = new Customer("Emily Johnson", address2);
+        Address address2 = new Address("45 Alaba market", "Lagos", "surulere", "Nigeria");
+        Customer customer2 = new Customer("Rosemary Hall", address2);
 
         Order order2 = new Order(customer2);
         order2.AddProduct(new Product("Noise-Cancelling Headphones", "NH-500", 199.99, 1));
