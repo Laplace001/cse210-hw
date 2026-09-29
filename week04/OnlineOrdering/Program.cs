@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-// Address class - holds street, city, state/province, and country
 public class Address
 {
     private string _street;
@@ -41,20 +40,17 @@ public class Address
         set { _country = value; }
     }
 
-    // Returns true if the address is in the USA
     public bool IsInUSA()
     {
         return _country.Trim().ToLower() == "usa" || _country.Trim().ToLower() == "united states";
     }
 
-    // Returns all fields as a single formatted string
     public string GetFullAddress()
     {
         return $"{_street}\n{_city}, {_stateOrProvince}\n{_country}";
     }
 }
 
-// Customer class - holds a name and an Address
 public class Customer
 {
     private string _name;
@@ -78,14 +74,13 @@ public class Customer
         set { _address = value; }
     }
 
-    // Calls the method on Address to determine if the customer lives in the USA
+    
     public bool IsInUSA()
     {
         return _address.IsInUSA();
     }
 }
 
-// Product class - holds name, product id, price per unit, and quantity
 public class Product
 {
     private string _name;
@@ -132,7 +127,7 @@ public class Product
     }
 }
 
-// Order class - holds a list of products and a customer
+
 public class Order
 {
     private List<Product> _products = new List<Product>();
@@ -154,7 +149,7 @@ public class Order
         _products.Add(product);
     }
 
-    // Sum of all product costs + one-time shipping cost
+    
     public double GetTotalPrice()
     {
         double total = 0;
@@ -166,13 +161,11 @@ public class Order
         return total;
     }
 
-    // Shipping is $5 for USA, $35 for everywhere else
     public double GetShippingCost()
     {
         return _customer.IsInUSA() ? 5.0 : 35.0;
     }
 
-    // Packing label: name and product id of each product
     public string GetPackingLabel()
     {
         string label = "Packing Label:\n";
@@ -183,7 +176,7 @@ public class Order
         return label;
     }
 
-    // Shipping label: name and address of the customer
+    
     public string GetShippingLabel()
     {
         string label = "Shipping Label:\n";
@@ -206,7 +199,7 @@ public class Program
         order1.AddProduct(new Product("Mechanical Keyboard", "MK-205", 89.50, 1));
         order1.AddProduct(new Product("USB-C Cable", "UC-310", 9.99, 3));
 
-        // ----- Order 2: Customer outside the USA -----
+        
         Address address2 = new Address("45 King's Road", "London", "England", "United Kingdom");
         Customer customer2 = new Customer("Emily Johnson", address2);
 
@@ -214,14 +207,13 @@ public class Program
         order2.AddProduct(new Product("Noise-Cancelling Headphones", "NH-500", 199.99, 1));
         order2.AddProduct(new Product("Laptop Stand", "LS-420", 34.75, 2));
 
-        // ----- Display results for Order 1 -----
+        
         Console.WriteLine("################ ORDER 1 ################");
         Console.WriteLine(order1.GetPackingLabel());
         Console.WriteLine(order1.GetShippingLabel());
         Console.WriteLine($"Total Price: ${order1.GetTotalPrice():F2}");
         Console.WriteLine();
 
-        // ----- Display results for Order 2 -----
         Console.WriteLine("################ ORDER 2 ################");
         Console.WriteLine(order2.GetPackingLabel());
         Console.WriteLine(order2.GetShippingLabel());
