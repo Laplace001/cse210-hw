@@ -2,117 +2,87 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-public class Journal
+namespace JournalProgram
 {
-    
-    private List<Entry> _entries = new List<Entry>();
-    private List<string> _prompts = new List<string>()
+    public class Journal
     {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?",
-        "What is something new I learned today?",
-        "What am I most grateful for right now?",
-        "What challenge did I overcome today, and how did I do it?"
-    };
+        public List<Entry> _entries = new List<Entry>();
 
-    private Random _random = new Random();
-
-    
-    public void WriteNewEntry()
-    {
-        string prompt = GetRandomPrompt();
-        Console.WriteLine($"\n{prompt}");
-        Console.Write("> ");
-        string response = Console.ReadLine();
-        string date = DateTime.Now.ToShortDateString();
-
-        Entry newEntry = new Entry(prompt, response, date);
-        _entries.Add(newEntry);
-    }
-
-
-    private string GetRandomPrompt()
-    {
-        int index = _random.Next(_prompts.Count);
-        return _prompts[index];
-    }
-
-    
-    public void DisplayJournal()
-    {
-        if (_entries.Count == 0)
+        
+        public void AddEntry(Entry newEntry)
         {
-            Console.WriteLine("\nThe journal is empty.");
-            return;
+            _entries.Add(newEntry);
         }
 
-        Console.WriteLine();
-        foreach (Entry entry in _entries)
+        
+        public void DisplayAll()
         {
-            entry.Display();
-        }
-    }
-
-    
-    public void SaveJournal()
-    {
-        Console.Write("What is the filename? ");
-        string filename = Console.ReadLine();
-
-        try
-        {
-            using (StreamWriter writer = new StreamWriter(filename))
+            if (_entries.Count == 0)
             {
-                foreach (Entry entry in _entries)
-                {
-                    writer.WriteLine(entry.ToFileString());
-                }
-            }
-            Console.WriteLine("Journal saved successfully.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error saving journal: {ex.Message}");
-        }
-    }
-
-    
-    public void LoadJournal()
-    {
-        Console.Write("What is the filename? ");
-        string filename = Console.ReadLine();
-
-        try
-        {
-            if (!File.Exists(filename))
-            {
-                Console.WriteLine("File not found.");
+                Console.WriteLine("There are no journal entries to display.");
                 return;
             }
 
-    
-            _entries.Clear();
+            Console.WriteLine("\n========== YOUR JOURNAL ==========\n");
 
-            string[] lines = File.ReadAllLines(filename);
-            foreach (string line in lines)
+            foreach (Entry entry in _entries)
             {
-                if (!string.IsNullOrWhiteSpace(line))
+                entry.Display();
+            }
+        }
+
+        
+        public void SaveToFile(string filename)
+        {
+            try
+            {
+                using (StreamWriter outputFile = new StreamWriter(filename))
                 {
-                    Entry entry = Entry.FromFileString(line);
-                    if (entry != null)
+                    foreach (Entry entry in _entries)
                     {
+                        outputFile.WriteLine(entry.ToFileString());
+                    }
+                }
+
+                Console.WriteLine("Journal saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving journal: {ex.Message}");
+            }
+        }
+
+        
+        public void LoadFromFile(string filename)
+        {
+            try
+            {
+                if (!File.Exists(filename))
+                {
+                    Console.WriteLine("The specified file does not exist.");
+                    return;
+                }
+
+                
+                _entries.Clear();
+
+                string[] lines = File.ReadAllLines(filename);
+
+                foreach (string line in lines)
+                {
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        Entry entry = Entry.FromFileString(line);
                         _entries.Add(entry);
                     }
                 }
+
+                Console.WriteLine("Journal loaded successfully.");
             }
-            Console.WriteLine("Journal loaded successfully.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error loading journal: {ex.Message}");
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading journal: {ex.Message}");
+            }
         }
     }
 }
