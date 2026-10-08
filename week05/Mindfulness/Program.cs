@@ -260,7 +260,7 @@ namespace MindfulnessProgram
                 if (DateTime.Now >= deadline)
                 {
                     timedOut = true;
-                    Console.WriteLine(); // move to a fresh line
+                    Console.WriteLine(); 
                     return buffer.ToString();
                 }
 
@@ -292,7 +292,7 @@ namespace MindfulnessProgram
                     }
                     else
                     {
-                        // Avoid a busy-wait CPU spin
+                        
                         Thread.Sleep(50);
                     }
                 }
@@ -310,7 +310,7 @@ namespace MindfulnessProgram
         }
     }
 
-   //Keeping a log of how many times activities were performed
+   
     public static class ActivityLog
     {
         private static readonly string LogFileName =
